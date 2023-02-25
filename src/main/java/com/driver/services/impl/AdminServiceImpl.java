@@ -30,10 +30,8 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void adminRegister(Admin admin) {
 		//Save the admin in the database
-		Admin newAdmin=new Admin();
-		newAdmin.setUserName(admin.getUserName());
-		newAdmin.setPassword(admin.getPassword());
-        adminRepository1.save(newAdmin);
+
+        adminRepository1.save(admin);
 
 	}
 
@@ -42,8 +40,8 @@ public class AdminServiceImpl implements AdminService {
 		//Update the password of admin with given id
 		Admin newAdmin=new Admin();
 		Admin admin=adminRepository1.findById(adminId).get();
-		newAdmin.setId(admin.getId());
-		newAdmin.setUserName(admin.getUserName());
+		newAdmin.setAdminId(admin.getAdminId());
+		newAdmin.setUsername(admin.getUsername());
 		newAdmin.setPassword(admin.getPassword());
 		newAdmin.setPassword(password);
 		adminRepository1.save(newAdmin);

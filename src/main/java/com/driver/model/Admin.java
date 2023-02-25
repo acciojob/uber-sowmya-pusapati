@@ -7,32 +7,32 @@ import javax.persistence.*;
 public class Admin{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int adminId;
     String userName;
     String password;
 
     public Admin() {
     }
 
-    public Admin(int id, String userName, String password) {
-        this.id = id;
+    public Admin(int adminId, String userName, String password) {
+        this.adminId= adminId;
         this.userName = userName;
         this.password = password;
     }
 
-    public int getId() {
-        return id;
+    public int getAdminId() {
+        return adminId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setAdminId(int id) {
+        this.adminId = id;
     }
 
-    public String getUserName() {
+    public String getUsername() {
         return userName;
     }
 
-    public void setUserName(String userName) {
+    public void setUsername(String userName) {
         this.userName = userName;
     }
 

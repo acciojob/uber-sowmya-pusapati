@@ -9,18 +9,18 @@ import java.util.List;
 public class Customer{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int customerId;
     String name;
-    String mobileNumber;
+    String mobile;
     String password;
 
     public Customer() {
     }
 
     public Customer(int id, String name, String mobileNumber, String password) {
-        this.id = id;
+        this.customerId = id;
         this.name = name;
-        this.mobileNumber = mobileNumber;
+        this.mobile = mobileNumber;
         this.password = password;
     }
     @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
@@ -34,12 +34,12 @@ public class Customer{
         this.tripBookingList = tripBookingList;
     }
 
-    public int getId() {
-        return id;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCustomerId(int id) {
+        this.customerId = id;
     }
 
     public String getName() {
@@ -50,12 +50,12 @@ public class Customer{
         this.name = name;
     }
 
-    public String getMobileNumber() {
-        return mobileNumber;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
+    public void setMobile(String mobileNumber) {
+        this.mobile = mobileNumber;
     }
 
     public String getPassword() {
