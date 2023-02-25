@@ -20,7 +20,8 @@ public class Cab{
         this.available = available;
     }
 
-    @OneToOne(mappedBy = "cab",cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn
     private Driver driver;
 
     public Driver getDriver() {

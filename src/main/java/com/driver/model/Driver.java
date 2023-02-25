@@ -22,9 +22,9 @@ public class Driver{
         this.password = password;
     }
 
-    @OneToOne
-    @JoinColumn
+    @OneToOne(mappedBy = "driver",cascade = CascadeType.ALL)
     private Cab cab;
+
 
     @OneToMany(mappedBy = "driver",cascade = CascadeType.ALL)
     private List<TripBooking> tripBookingList=new ArrayList<>();
