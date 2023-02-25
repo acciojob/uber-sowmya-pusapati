@@ -53,40 +53,33 @@ public class CustomerServiceImpl implements CustomerService {
 	public TripBooking bookTrip(int customerId, String fromLocation, String toLocation, int distanceInKm) throws Exception{
 		//Book the driver with lowest driverId who is free (cab available variable is Boolean.TRUE). If no driver is available, throw "No cab available!" exception
 		//Avoid using SQL query
-		TripBooking tripBooking=new TripBooking();
-		Customer customer=customerRepository2.findById(customerId).get();
-		List<TripBooking> bookingList=customer.getTripBookingList();
-		List<Driver> driverList=driverRepository2.findAll();
-		int id=Integer.MAX_VALUE;
-		for(Driver driver:driverList)
-		{
-			if(driver.getDriverId()<id)
-			{
-				id= driver.getDriverId();
+		List<Driver> driverList = driverRepository2.findAll();
+		Driver driver = null;
+		for(Driver currDriver : driverList){
+			if(currDriver.getCab().getAvailable()){
+				if((driver == null) || (currDriver.getDriverId() < driver.getDriverId())){
+					driver = currDriver;
+				}
 			}
-
 		}
-		Driver driver1=driverRepository2.findById(id).get();
-		List<TripBooking> bookingList1=driver1.getTripBookingList();
-		Cab cab=driver1.getCab();
-		if(!cab.getAvailable())
-		{
+		if(driver==null) {
 			throw new Exception("No cab available!");
 		}
 
-
+            TripBooking tripBooking=new TripBooking();
 			tripBooking.setFromLocation(fromLocation);
 			tripBooking.setToLocation(toLocation);
 			tripBooking.setDistanceInKm(distanceInKm);
 			tripBooking.setStatus(TripStatus.CONFIRMED);
-			tripBooking.setCustomer(customer);
-			tripBooking.setDriver(driver1);
-			int rate=driver1.getCab().getPerKmRate();
+			tripBooking.setCustomer(customerRepository2.findById(customerId).get());
+			tripBooking.setDriver(driver);
+			int rate=driver.getCab().getPerKmRate();
 			tripBooking.setBill(distanceInKm*rate);
 
-			driver1.getCab().setAvailable(false);
-			driverRepository2.save(driver1);
+			driver.getCab().setAvailable(false);
+			driverRepository2.save(driver);
 
+			Customer customer=customerRepository2.findById(customerId).get();
 			customer.getTripBookingList().add(tripBooking);
 			customerRepository2.save(customer);
 
